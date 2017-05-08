@@ -19,10 +19,12 @@ public class ListController {
     static HashMap<String, String> columnChoices = new HashMap<>();
 
     public ListController () {
-        columnChoices.put("core competency", "Skill");
+    	// took out space's in core competency and position type to make up for 
+    	// where I changed in JobData class
+        columnChoices.put("corecompetency", "Skill");
         columnChoices.put("employer", "Employer");
         columnChoices.put("location", "Location");
-        columnChoices.put("position type", "Position Type");
+        columnChoices.put("positiontype", "Position Type");
         columnChoices.put("all", "All");
     }
 
@@ -40,7 +42,7 @@ public class ListController {
         if (column.equals("all")) {
             ArrayList<HashMap<String, String>> jobs = JobData.findAll();
             model.addAttribute("title", "All Jobs");
-            model.addAttribute("jobs", jobs);
+            model.addAttribute("jobs", jobs);            
             return "list-jobs";
         } else {
             ArrayList<String> items = JobData.findAll(column);

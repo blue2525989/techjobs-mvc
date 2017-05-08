@@ -20,7 +20,7 @@ public class JobData {
     private static final String DATA_FILE = "job_data.csv";
     private static boolean isDataLoaded = false;
 
-    private static ArrayList<HashMap<String, String>> allJobs;
+    public static ArrayList<HashMap<String, String>> allJobs;
 
     /**
      * Fetch list of all values from loaded data,
@@ -67,7 +67,7 @@ public class JobData {
      * with "Enterprise Holdings, Inc".
      *
      * @param column   Column that should be searched.
-     * @param value Value of teh field to search for
+     * @param value Value of the field to search for
      * @return List of all jobs matching the criteria
      */
     public static ArrayList<HashMap<String, String>> findByColumnAndValue(String column, String value) {
@@ -122,7 +122,7 @@ public class JobData {
     /**
      * Read in data from a CSV file and store it in a list
      */
-    private static void loadData() {
+    public static void loadData() {
 
         // Only load data once
         if (isDataLoaded) {
@@ -147,7 +147,19 @@ public class JobData {
                 HashMap<String, String> newJob = new HashMap<>();
 
                 for (String headerLabel : headers) {
-                    newJob.put(headerLabel, record.get(headerLabel));
+                	// changed the column names so I could parse them easily
+                	if (headerLabel.equals("position type")) {
+                		String temp = "positiontype";
+                		newJob.put(temp, record.get(headerLabel));
+                	}
+                	else if (headerLabel.equals("core competency")) {
+                		String temp = "corecompetency";
+                		newJob.put(temp, record.get(headerLabel));
+                	}
+                	else {
+                		newJob.put(headerLabel, record.get(headerLabel));
+                	}
+                   
                 }
 
                 allJobs.add(newJob);
